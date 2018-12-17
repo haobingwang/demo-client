@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>handlebars 客户端渲染实例</title>
+</head>
+<body>
+	<p>这是一个在客户端渲染模板的实例。相应的，还可以在服务器端渲染模板。</p>
+	<p>按下按钮执行渲染： <button id="button-render">渲染</button></p>
+	<div class="entry-wrap">
+		<script id="entry-template" type="text/x-handlebars-template">
+		  <div class="entry">
+		    <h1>{{title}}</h1>
+		    <div class="body">
+		      {{body}}
+		    </div>
+		  </div>
+		</script>
+	</div>
+
+	<script src="https://cdn.bootcss.com/handlebars.js/4.0.12/handlebars.min.js"></script>
+	<script>
+		// 先对模板进行编译
+		var source   = document.getElementById("entry-template");
+		var template = Handlebars.compile(source.innerHTML);
+
+		// 异步获取暑假后渲染模板
+		document.getElementById('button-render').addEventListener('click', function(){
+			// 得到渲染后的 dom
+			var node = document.createElement('div');
+			node.innerHTML = template({title: "My New Post", body: "This is my first post!"});
+			source.parentNode.insertBefore(node, source);
+		});
+	</script>
+</body>
+</html>
